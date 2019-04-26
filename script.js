@@ -45,7 +45,9 @@ function ready () {
         createCircle(w)
     }
 
-    drawCenterDot()
+    if (process.env.NODE_ENV === 'development') {
+        drawCenterDot()
+    }
 
 }
 
