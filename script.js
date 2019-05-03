@@ -34,10 +34,18 @@ function askWords () {
     words = wordsStr.split(',').map(w => w.trim())
 }
 
-function ready () {
-    console.log('on ready()')
+function regen () {
+    // console.log('in regen()')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    // console.dir(document.getElementById('the_canvas'))
+    draw()
+}
+
+function ready () {
+    // console.log('on ready()')
+
+    document.getElementById('btnRegen').addEventListener('click', regen)
+
     windowWidth = window.innerWidth
     windowHeight = window.innerHeight
 
@@ -49,16 +57,25 @@ function ready () {
 
     askWords()
 
-    for (let w of words) {
-        if (w !== '') {
-            createCircle(w)
-        }
-    }
+    draw()
+
+}
+
+function draw () {
+    createCircles()
 
     if (process.env.NODE_ENV === 'development') {
         drawCenterDot()
     }
 
+}
+
+function createCircles () {
+    for (let w of words) {
+        if (w !== '') {
+            createCircle(w)
+        }
+    }
 }
 
 function drawCenterDot () {
