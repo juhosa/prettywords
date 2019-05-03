@@ -15,6 +15,8 @@ let colors = [
 
 let radiuses = [100, 150, 175, 200, 250]
 
+let words = []
+
 function randomColor () {
     return colors[Math.floor(Math.random() * colors.length)]
 }
@@ -27,8 +29,14 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function askWords () {
+    wordsStr = prompt('Words, split by comma:')
+    words = wordsStr.split(',').map(w => w.trim())
+}
+
 function ready () {
     console.log('on ready()')
+
     // console.dir(document.getElementById('the_canvas'))
     windowWidth = window.innerWidth
     windowHeight = window.innerHeight
@@ -39,10 +47,12 @@ function ready () {
     canvas.width = windowWidth
     canvas.height = windowHeight
 
-    let words = ['bat', 'fd', 'pipenv']
+    askWords()
 
     for (let w of words) {
-        createCircle(w)
+        if (w !== '') {
+            createCircle(w)
+        }
     }
 
     if (process.env.NODE_ENV === 'development') {
